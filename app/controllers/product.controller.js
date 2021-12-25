@@ -1,3 +1,4 @@
+const moment = require("moment");
 const db = require("../models");
 const Product = db.products;
 
@@ -39,6 +40,27 @@ exports.findAll = (req, res) => {
   Product.find(condition)
     .then((data) => {
       res.send(data);
+
+      // const response = {
+      //   count: data.length,
+      //   products: data.map((doc) => {
+      //     return {
+      //       id: doc.id,
+      //       sku: doc.sku,
+      //       name: doc.name,
+      //       price: doc.price,
+      //       amount: doc.amount,
+      //       published: doc.published,
+      //       create_date: moment(doc.createdAt).format("h:mm:ss, DD/MM/YYYY"),
+      //       request: {
+      //         type: "GET",
+      //         url: "http://localhost:3000/api/products/" + doc.id,
+      //       },
+      //     };
+      //   }),
+      // };
+
+      // res.status(200).json(response);
     })
     .catch((err) => {
       res.status(500).send({
