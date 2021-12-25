@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  app:
+    container_name: fruitstore-app
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    depends_on:
+      - mongodb
+    # restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/app
+    networks:
+      - fruitstore-network
+  
+  mongodb:
+    container_name: fruitstore-mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: fruitstore
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: fruitstore_123
+    volumes:
+      - ./docker/mongodb/dbdata:/data/db
+    networks:
+      - fruitstore-network
+    
+  mongo-express:
+    container_name: fruitstore-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: fruitstore_123
+      ME_CONFIG_MONGODB_URL: mongodb://root:fruitstore_123@mongodb:27017/fruitstore?authSource=admin
+    networks:
+      - fruitstore-network
+
+networks:
+  fruitstore-network:
+    driver: bridge
