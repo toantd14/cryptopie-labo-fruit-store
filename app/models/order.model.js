@@ -1,15 +1,15 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      user: { type: String, require: true },
+      user: { type: String, required: true },
       fruits: [
         {
           product: { type: mongoose.Schema.Types.ObjectId, ref: "product", required: true },
           quantity: { type: Number, default: 1 },
         },
       ],
-      total_price: { type: Number, require: true },
-      status: { type: Number, require: true },
+      total_price: { type: Number, required: true },
+      status: { type: Number, required: true },
     },
     { timestamps: true }
   );

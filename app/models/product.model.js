@@ -1,11 +1,11 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      sku: { type: String, require: true },
-      name: { type: String, require: true },
-      price: { type: Number, require: true },
-      amount: { type: Number, require: true },
-      published: { type: Boolean, require: true },
+      sku: { type: String, required: true },
+      name: { type: String, required: true },
+      price: { type: Number, required: true },
+      amount: { type: Number, required: true },
+      published: { type: Boolean, required: true },
     },
     { timestamps: true }
   );
